@@ -1,0 +1,1 @@
+add_subdirectory(cgshop_pyutils24)
