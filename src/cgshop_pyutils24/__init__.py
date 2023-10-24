@@ -1,3 +1,3 @@
-from ._bindings import Rectangle, QuadTree
+from ._bindings import Coordinate, Knapsack, QuadTree, Rectangle
 
-__all__ = ["Rectangle", "QuadTree"]
+__all__ = ["Coordinate", "Rectangle", "QuadTree", "Knapsack"]

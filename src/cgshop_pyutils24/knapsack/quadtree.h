@@ -17,10 +17,8 @@
 #include <optional>
 #include <stdexcept> // runtime_error
 
-namespace cgshop
+namespace cgshop2024
 {
-    namespace quadtree
-    {
         using Num = long;
 
         class Coordinate
@@ -282,7 +280,6 @@ namespace cgshop
         protected:
             QuadTreeNode<T> root;
         };
-    }; // namespace quadtree
-};     // namespace cgshop
+};     // namespace cgshop2024
 
 #endif /* __QUADTREE_H__ */

@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 .conan
 _skbuild/macosx-10.16-x86_64-3.10
+CMakeUserPresets.json
