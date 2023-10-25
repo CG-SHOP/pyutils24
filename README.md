@@ -113,3 +113,10 @@ except ZipReaderError as err:
 
 The native parts are known to cause trouble on some systems.
 Check out [this page](https://github.com/d-krupke/skbuild-conan#common-problems) for solutions of various problems.
+
+
+## License
+
+The code in this repository can be used under the terms of the MIT license.
+However, the package binds against CGAL which is licensed under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html).
+This should still allow you to modify and use the code for the competition.
