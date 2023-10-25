@@ -8,12 +8,14 @@ Feel free to use the code, but it is optimized for *exact* verification not for 
 The package is not yet on PyPI, so you have to install it manually.
 
 ```bash
-pip install -v .
+pip install -U -v .
 ```
 
 During the installation, CGAL and other dependencies will be downloaded and compiled.
 This can take a while but should happen mostly automatic.
 You need to have a C++ compiler installed.
+
+> Please check for updates of the utils frequently as we are still working on them.
 
 ## Usage
 
