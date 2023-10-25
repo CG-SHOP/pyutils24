@@ -105,7 +105,7 @@ try:
 except ZipReaderError as err:
     print("Error while reading zip file:", err)
 ```
-```
+
 
 ## Trouble Shooting
 
