@@ -30,10 +30,11 @@ Rectangle get_bbox(const std::vector<Coordinate> &points) {
   return Rectangle(min_x, min_y, max_x - min_x, max_y - min_y);
 }
 
-std::vector<Coordinate> translate(const std::vector<Coordinate>& points, Coordinate translation) {
+std::vector<Coordinate> translate(const std::vector<Coordinate> &points,
+                                  Coordinate translation) {
   std::vector<Coordinate> translated;
   translated.reserve(points.size());
-  for (auto& p : points) {
+  for (auto &p : points) {
     translated.emplace_back(p.x + translation.x, p.y + translation.y);
   }
   return translated;

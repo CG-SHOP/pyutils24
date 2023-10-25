@@ -1,5 +1,5 @@
-import os
 import abc
+import os
 import typing
 
 from ..io import read_instance
@@ -23,7 +23,8 @@ class InstanceBaseDatabase(abc.ABC):
         self._is_cache_enabled = enable_cache
         self._cache = {}
         if not os.path.exists(path):
-            raise ValueError(f"The folder {os.path.abspath(path)} does not exist")
+            msg = f"The folder {os.path.abspath(path)} does not exist"
+            raise ValueError(msg)
 
     def _filename_fits_name(self, filename, name):
         if not self._filename_fits_instance_convention(filename):
@@ -32,10 +33,7 @@ class InstanceBaseDatabase(abc.ABC):
         return split[0] == name
 
     def _filename_fits_instance_convention(self, filename):
-        split = filename.split(".")
-        if len(split) != 3:
-            return False
-        return split[1] == "instance" and split[2] == "json"
+        return filename.endswith(".cgshop2024_instance.json")
 
     def read(self, f):
         return read_instance(f)
@@ -65,7 +63,6 @@ class InstanceBaseDatabase(abc.ABC):
         Iterate over all instances in database.
         :return: Instance objects
         """
-        pass
 
     @abc.abstractmethod
     def __getitem__(self, name: str) -> typing.Dict:
@@ -74,4 +71,3 @@ class InstanceBaseDatabase(abc.ABC):
         :param name: Name of the instance.
         :return: Instance object
         """
-        pass

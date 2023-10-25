@@ -36,7 +36,8 @@ class InstanceFileDatabase(InstanceBaseDatabase):
         for instance_path in self._iterate_paths():
             if self._filename_fits_name(os.path.split(instance_path)[-1], name):
                 return instance_path
-        raise KeyError(f"Did not find a suitable file for {name} in {self._path}")
+        msg = f"Did not find a suitable file for {name} in {self._path}"
+        raise KeyError(msg)
 
     def _extract_instance_name_from_path(self, path):
         filename = os.path.split(path)[1]

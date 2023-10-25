@@ -1,7 +1,7 @@
-from .verify import verify
-from .io import parse_solution, BadSolutionFile
 from .instance_database import InstanceDatabase
-from .zip import ZipSolutionIterator, ZipReaderError
+from .io import BadSolutionFile, parse_solution
+from .verify import verify
+from .zip import ZipReaderError, ZipSolutionIterator
 
 __all__ = [
     "verify",

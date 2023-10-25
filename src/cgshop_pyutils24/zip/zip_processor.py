@@ -4,20 +4,20 @@ in it. It should be reasonably robust and have some basic security features.
 """
 import json
 import typing
-from typing import BinaryIO, Union, Iterator
-from os import PathLike
-from zipfile import ZipFile, BadZipFile
 from json import JSONDecodeError
+from os import PathLike
+from typing import BinaryIO, Iterator, Union
+from zipfile import BadZipFile, ZipFile
 
 import chardet
 
-from ..io import parse_solution, NoSolution, BadSolutionFile
+from ..io import BadSolutionFile, NoSolution, parse_solution
 from .zip_reader_errors import (
     BadZipChecker,
-    NoSolutionsError,
     InvalidEncodingError,
     InvalidJSONError,
     InvalidZipError,
+    NoSolutionsError,
 )
 
 
@@ -140,8 +140,10 @@ class ZipSolutionIterator:
                     except NoSolution:
                         print(f"Skipping {file_name}, as it is not a solution file.")
         except BadZipFile as e:
-            raise InvalidZipError(f"{e}") from e
+            msg = f"{e}"
+            raise InvalidZipError(msg) from e
         except BadSolutionFile as e:
-            raise InvalidZipError(f"Aborted parsing zip due to bad file: {e}") from e
+            msg = f"Aborted parsing zip due to bad file: {e}"
+            raise InvalidZipError(msg) from e
         if not found_an_instance:
             raise NoSolutionsError()

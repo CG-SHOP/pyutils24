@@ -1,6 +1,6 @@
 import os
-import zipfile
 import typing
+import zipfile
 
 from .instance_file_database import InstanceFileDatabase
 from .instance_zip_database import InstanceZipDatabase
@@ -37,8 +37,10 @@ class InstanceDatabase:
             if zipfile.is_zipfile(path):
                 return InstanceZipDatabase(path, enable_cache=enable_cache)
             else:
-                raise FileNotFoundError(f"{path} is neither a directory or a zipfile.")
-        raise FileNotFoundError(f"{path} not found")
+                msg = f"{path} is neither a directory or a zipfile."
+                raise FileNotFoundError(msg)
+        msg = f"{path} not found"
+        raise FileNotFoundError(msg)
 
     def __iter__(self) -> typing.Dict:
         """
@@ -55,7 +57,7 @@ class InstanceDatabase:
         """
         if "/" in name:
             name = name.split("/")[-1]
-        extension = ".instance"
+        extension = ".cgshop2024_instance.json"
         if len(name) > len(extension) and name[-len(extension) :] == extension:
             name = name[: -len(extension)]
         return self._inner_database[name]

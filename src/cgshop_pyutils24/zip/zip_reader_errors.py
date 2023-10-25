@@ -99,7 +99,8 @@ class BadZipChecker:
     def _check_crc(self, zip_file):
         bad_filename = zip_file.testzip()
         if bad_filename is not None:
-            raise InvalidZipError(f"{bad_filename} is corrupted (CRC checksum error)!")
+            msg = f"{bad_filename} is corrupted (CRC checksum error)!"
+            raise InvalidZipError(msg)
 
     def __call__(self, zip_file):
         self._check_file_names(zip_file)

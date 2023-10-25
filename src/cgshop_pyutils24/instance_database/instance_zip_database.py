@@ -1,6 +1,6 @@
 import os
-import zipfile
 import typing
+import zipfile
 
 from .instance_base_database import InstanceBaseDatabase
 
@@ -31,7 +31,8 @@ class InstanceZipDatabase(InstanceBaseDatabase):
                 os.path.split(instance_path.filename)[-1], name
             ):
                 return instance_path
-        raise KeyError(f"Did not find a suitable file for {name} in {self._path}")
+        msg = f"Did not find a suitable file for {name} in {self._path}"
+        raise KeyError(msg)
 
     def __iter__(self) -> typing.Dict:
         """
