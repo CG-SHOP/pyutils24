@@ -71,20 +71,20 @@ def parse_solution(data):
         item_indices
     ):
         msg = "Translations and item indices must have the same length."
-        raise BadSolutionFile(
-            msg
-        )
+        raise BadSolutionFile(msg)
 
-    for i, x, y in zip(item_indices, x_translations, y_translations, strict=True):
-        if not isinstance(i, int):
+    for list_pos, (item_idx, x_tl, y_tl) in enumerate(
+        zip(item_indices, x_translations, y_translations, strict=True)
+    ):
+        if not isinstance(item_idx, int):
             msg = "Item indices must be integers."
             raise BadSolutionFile(msg)
-        if int(x) != x or int(y) != y:
+        if int(x_tl) != x_tl or int(y_tl) != y_tl:
             msg = "Translations must be integers."
             raise BadSolutionFile(msg)
-        item_indices[i] = int(i)
-        x_translations[i] = int(x)
-        y_translations[i] = int(y)
+        item_indices[list_pos] = int(item_idx)
+        x_translations[list_pos] = int(x_tl)
+        y_translations[list_pos] = int(y_tl)
     return {
         "instance_name": str(data["instance_name"]),
         "item_indices": item_indices,

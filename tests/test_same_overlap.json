@@ -1,0 +1,20 @@
+{
+    "type": "cgshop2024_solution",
+    "instance_name": "random_cf1_64ac4991_50",
+    "num_included_items": 3,
+    "item_indices": [
+        2,
+        2,
+        20
+    ],
+    "x_translations": [
+        1e+6,
+        2e+6,
+        4e+6
+    ],
+    "y_translations": [
+        3000000,
+        3000000,
+        2803700
+    ]
+}

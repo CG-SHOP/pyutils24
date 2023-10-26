@@ -1,0 +1,20 @@
+{
+    "type": "cgshop2024_solution",
+    "instance_name": "atris1240",
+    "num_included_items": 3,
+    "item_indices": [
+        0,
+        3000,
+        817
+    ],
+    "x_translations": [
+        0,
+        304000,
+        200000
+    ],
+    "y_translations": [
+        3000000,
+        3000000,
+        2803700
+    ]
+}
