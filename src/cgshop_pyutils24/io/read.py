@@ -77,7 +77,7 @@ def parse_solution(data: typing.Dict):
         raise BadSolutionFile(msg)
 
     for list_pos, (item_idx, x_tl, y_tl) in enumerate(
-        zip(item_indices, x_translations, y_translations, strict=True)
+        zip(item_indices, x_translations, y_translations)
     ):
         if not isinstance(item_idx, int):
             msg = "Item indices must be integers."
