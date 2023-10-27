@@ -9,7 +9,7 @@ def readme():
         return file.read()
 
 setup(  # https://scikit-build.readthedocs.io/en/latest/usage.html#setup-options
-    name="cgshop_pyutils24",
+    name="cgshop2024_pyutils",
     version="1.0.0",
     author="Dominik Krupke",
     license="LICENSE",

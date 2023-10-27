@@ -1,4 +1,4 @@
-from cgshop_pyutils24 import verify, InstanceDatabase, InvalidSolution, BadSolutionFile, read_solution
+from cgshop2024_pyutils import verify, InstanceDatabase, InvalidSolution, BadSolutionFile, read_solution
 import os
 
 def get_path(rel_path):

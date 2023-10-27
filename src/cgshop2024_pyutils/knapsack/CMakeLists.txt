@@ -15,4 +15,4 @@ target_compile_definitions(_bindings PRIVATE PYBIND11_DETAILED_ERROR_MESSAGES)
 # move the compiled module to this folder. You can check with `python setup.py
 # build` how the package will look like and if the module is moved to the right
 # location.
-install(TARGETS _bindings DESTINATION ./src/cgshop_pyutils24/knapsack)
+install(TARGETS _bindings DESTINATION ./src/cgshop2024_pyutils/knapsack)

@@ -5,10 +5,10 @@ Feel free to use the code, but it is optimized for *exact* verification not for 
 
 ## Installation
 
-The package is not yet on PyPI, so you have to install it manually.
+You can install this package via PyPI:
 
 ```bash
-pip install -U -v .
+pip install -U -v cgshop2024-pyutils
 ```
 
 During the installation, CGAL and other dependencies will be downloaded and compiled.

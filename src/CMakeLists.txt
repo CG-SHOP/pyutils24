@@ -1,1 +1,1 @@
-add_subdirectory(cgshop_pyutils24)
+add_subdirectory(cgshop2024_pyutils)
