@@ -38,11 +38,14 @@ class BadSolutionFile(Exception):
         return self.msg
 
 
-def parse_solution(data):
+def parse_solution(data: typing.Dict):
     """
     Parse the instance and return a perfectly formatted and typed solution
     or raise an exception (BadSolutionFile) if the solution is invalid.
     """
+    if not isinstance(data, dict):
+        msg = "Solution must be a dictionary. If your JSON-file is a list of solutions, please split it into multiple files."
+        raise BadSolutionFile(msg)
     # make sure this is a proper solution file
     if data["type"].lower() != "cgshop2024_solution":
         msg = "Not a CGSHOP2024 solution file"
