@@ -120,3 +120,8 @@ Check out [this page](https://github.com/d-krupke/skbuild-conan#common-problems)
 The code in this repository can be used under the terms of the MIT license.
 However, the package binds against CGAL which is licensed under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html).
 This should still allow you to modify and use the code for the competition.
+
+## Changelog
+
+* **1.0.1:** Only giving a warning if a node cannot be split instead of throwing an exception. [Issue #1](https://github.com/CG-SHOP/pyutils24/issues/1)
+* **1.0.0:** Initial release

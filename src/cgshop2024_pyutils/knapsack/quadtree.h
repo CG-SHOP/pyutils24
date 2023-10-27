@@ -129,7 +129,8 @@ public:
       elements.push_back(element);
       if (elements.size() > max_elements) {
         if (!area.is_splitable()) {
-          throw std::runtime_error("Node is not splitable.");
+          std::cout << "Warning: Overfull node cannot be split." << std::endl;
+          return;
         }
         // Split the node.
         auto sub_areas = area.split();
