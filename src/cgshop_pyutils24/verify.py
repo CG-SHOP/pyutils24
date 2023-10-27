@@ -4,7 +4,7 @@ from .knapsack import Coordinate, Knapsack, PackingError, translate
 
 
 def _to_coords(xs: typing.List[int], ys: typing.List[int]):
-    return [Coordinate(x, y) for x, y in zip(xs, ys, strict=True)]
+    return [Coordinate(x, y) for x, y in zip(xs, ys)]
 
 
 class InvalidSolution(Exception):
@@ -29,7 +29,6 @@ def verify(instance: typing.Dict, solution: typing.Dict) -> int:
         solution["item_indices"],
         solution["x_translations"],
         solution["y_translations"],
-        strict=True,
     ):
         if not (0<=i<len(item_polys)):
             msg = f"Item index {i} is out of bounds."
