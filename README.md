@@ -123,5 +123,6 @@ This should still allow you to modify and use the code for the competition.
 
 ## Changelog
 
+* **1.0.2:** The previous workaround could lead to excessive memory usage. Changed quadtree implementation to keep large elements on higher levels even if the node is full. Gives a warning in this case.
 * **1.0.1:** Only giving a warning if a node cannot be split instead of throwing an exception. [Issue #1](https://github.com/CG-SHOP/pyutils24/issues/1)
 * **1.0.0:** Initial release

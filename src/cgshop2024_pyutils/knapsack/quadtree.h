@@ -97,10 +97,10 @@ public:
   QuadTreeNode() : area(Rectangle()) {}
   QuadTreeNode(const Rectangle &area) : area(area) {
     if (area.volume() == 0) {
-      throw std::runtime_error("Cannot create node with empty area.");
+      throw std::runtime_error("Cannot create node with empty area. This is an overcautious exception of a state I did not expect to happen.");
     }
     if (depth() > max_depth) {
-      throw std::runtime_error("Node depth exceeds maximum depth.");
+      throw std::runtime_error("Node depth exceeds maximum depth. This is an overcautious exception of a state I did not expect to happen.");
     }
     children.reserve(4);
   }
@@ -113,39 +113,50 @@ public:
 
   void add(const Element<T> &element) {
     if (!area.do_overlap(element.area)) {
-      throw std::runtime_error("Element does not overlap with node.");
+      throw std::runtime_error("Element does not overlap with node. This is a bug in the quadtree implementation.");
     }
     if (!children.empty()) {
-      assert(elements.empty());
-      assert(children.size() == 4);
-      // Add to children.
-      for (auto &child : children) {
-        if (child.area.do_overlap(element.area)) {
-          child.add(element);
+      if(element.area.volume() > area.volume()) {
+        elements.push_back(element);
+        if(elements.size() > 100) {
+          std::cout << "Warning: Overfilling node in quadtree due to volume of element (size: "<< elements.size()<<")" << std::endl;
+        }
+      } else {
+        assert(children.size() == 4);
+        // Add to children.
+        for (auto &child : children) {
+          if (child.area.do_overlap(element.area)) {
+            child.add(element);
+          }
         }
       }
     } else {
       // Add to this node.
       elements.push_back(element);
+      
       if (elements.size() > max_elements) {
         if (!area.is_splitable()) {
-          std::cout << "Warning: Overfull node cannot be split." << std::endl;
+          std::cout << "Warning: Overfull node (size: "<< elements.size()<<") cannot be split." << std::endl;
           return;
         }
+
         // Split the node.
         auto sub_areas = area.split();
         for (unsigned int i = 0; i < 4; i++) {
           children.push_back(QuadTreeNode<T>(sub_areas[i]));
         }
         // Move elements to children.
+        std::vector<Element<T>> elements_to_keep_on_this_level;
         for (auto &child : children) {
           for (auto &element : elements) {
-            if (child.area.do_overlap(element.area)) {
+            if ( (element.area.volume() <= area.volume()) && child.area.do_overlap(element.area)) {
               child.add(element);
+            } else {
+              elements_to_keep_on_this_level.push_back(element);
             }
           }
         }
-        elements.clear();
+        elements = elements_to_keep_on_this_level;
       }
     }
   }
@@ -155,16 +166,7 @@ public:
     if (!area.do_overlap(query_area)) {
       return result;
     }
-    if (!children.empty()) {
-      // Query children.
-      for (auto &child : children) {
-        if (child.area.do_overlap(query_area)) {
-          auto child_result = child.query(query_area);
-          result.insert(result.end(), child_result.begin(), child_result.end());
-        }
-      }
-    } else {
-      // Query this node.
+    // Query this node.
       for (auto &element : elements) {
         if (element.area.do_overlap(query_area)) {
           // only add if the element is not already in the result.
@@ -172,6 +174,14 @@ public:
               result.end()) {
             result.push_back(element.data);
           }
+        }
+      }
+    if (!children.empty()) {
+      // Query children.
+      for (auto &child : children) {
+        if (child.area.do_overlap(query_area)) {
+          auto child_result = child.query(query_area);
+          result.insert(result.end(), child_result.begin(), child_result.end());
         }
       }
     }
@@ -206,7 +216,12 @@ template <typename T> class QuadTree {
 public:
   QuadTree(const Rectangle &area) : root(area) {}
 
-  void add(const Element<T> &element) { root.add(element); }
+  void add(const Element<T> &element) { 
+    if(! element.area.do_overlap(root.area)) {
+      throw std::runtime_error("Trying to insert an element into the quadtree that does not overlap with the root node.");
+    }
+    root.add(element);
+     }
 
   std::vector<T> query(const Rectangle &query_area) const {
     return root.query(query_area);

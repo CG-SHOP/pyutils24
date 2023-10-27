@@ -49,6 +49,12 @@ def test_bounds():
     instance = db[solution["instance_name"]]
     assert(rverify(instance, solution) == False)
 
+def test_outside():
+    db = get_db()
+    solution = _read_solution("./assets/test_outside.json")
+    instance = db[solution["instance_name"]]
+    assert(rverify(instance, solution) == False)
+
 def test_multi():
     db = get_db()
     solution = _read_solution("./assets/test_multi.json")
