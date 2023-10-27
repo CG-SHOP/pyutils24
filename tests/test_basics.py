@@ -6,7 +6,14 @@ def get_path(rel_path):
     return os.path.join(TEST_DIR, rel_path)
 
 def get_db():
-    return InstanceDatabase(get_path("./assets/cgshop2024_benchmark.zip"))
+    path = get_path("./assets/cgshop2024_benchmark.zip")
+    if not os.path.exists(path):
+        # download the benchmark
+        import urllib.request
+        url = "https://cgshop.ibr.cs.tu-bs.de/worker_uploads_static/cgshop2024_benchmark.zip"
+        urllib.request.urlretrieve(url, path)
+
+    return InstanceDatabase(path)
 
 def _read_solution(path):
     return read_solution(get_path(path))
