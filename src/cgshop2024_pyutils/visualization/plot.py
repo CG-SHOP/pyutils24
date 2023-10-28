@@ -1,9 +1,7 @@
-import numpy as np
-from matplotlib.path import Path
-from matplotlib.patches import PathPatch
-import matplotlib as mpl
 import matplotlib.colors as mpc
 import matplotlib.pyplot as plt
+from matplotlib.patches import PathPatch
+from matplotlib.path import Path
 
 
 def patchify(poly, **kwargs):
@@ -18,7 +16,7 @@ def patchify(poly, **kwargs):
         codes[-1] = Path.CLOSEPOLY
         return codes
 
-    codes = [movecode for movecode in ring_coding(len(poly))]
+    codes = list(ring_coding(len(poly)))
     return PathPatch(Path(poly, codes), **kwargs)
 
 

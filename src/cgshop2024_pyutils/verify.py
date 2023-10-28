@@ -30,7 +30,7 @@ def verify(instance: typing.Dict, solution: typing.Dict) -> int:
         solution["x_translations"],
         solution["y_translations"],
     ):
-        if not (0<=i<len(item_polys)):
+        if not (0 <= i < len(item_polys)):
             msg = f"Item index {i} is out of bounds."
             raise InvalidSolution(msg)
         if item_quantities[i] <= 0:
