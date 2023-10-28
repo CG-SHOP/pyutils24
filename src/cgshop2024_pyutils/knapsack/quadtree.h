@@ -18,7 +18,7 @@
 #include <vector>
 
 namespace cgshop2024 {
-using Num = long;
+using Num = int64_t;
 
 class Coordinate {
 public:
