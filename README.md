@@ -149,6 +149,7 @@ you to modify and use the code for the competition.
 
 ## Changelog
 
+- **1.1.1:** A long on Windows is only 32bit, so changed to using the explicit `int64_t` type.
 - **1.1.0:** The previous workaround could lead to excessive memory usage.
   Changed quadtree implementation to keep large elements on higher levels even
   if the node is full. Gives a warning in this case.
