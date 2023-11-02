@@ -14,30 +14,25 @@
 #include <pybind11/pybind11.h>  // basic pybind11 functionality
 #include <pybind11/stl.h>       // automatic conversion of vectors
 
-#include "./knapsack.h"
-#include "./quadtree.h"
+#include "knapsack.h"
+#include "quadtree.h"
 
-// Getting this name right is important! It has to equal the name in the
-// CMakeLists.txt.
-PYBIND11_MODULE(_bindings, m) {
-  namespace py = pybind11;
-  m.doc() = "Bindings to the C++ code.";
-  using Num = cgshop2024::Num;
-  using Rectangle = cgshop2024::Rectangle;
-  using Coordinate = cgshop2024::Coordinate;
+namespace py = pybind11;
+
+void bind_knapsack(py::module &m) {
   using Val = long;
+  using Num = cgshop2024::Num;
+  using Coordinate = cgshop2024::Coordinate;
+  using Rectangle = cgshop2024::Rectangle;
   using Quadtree = cgshop2024::QuadTree<Val>;
   using Element = cgshop2024::Element<Val>;
   using Knapsack = cgshop2024::PolygonalKnapsack;
-
+  using AbstractChecker = cgshop2024::AbstractChecker;
+  
   // Rectangle
-  py::class_<Coordinate>(m, "Coordinate")
-      .def(py::init<Num, Num>(), py::arg("x"), py::arg("y"))
-      .def_readonly("x", &Coordinate::x)
-      .def_readonly("y", &Coordinate::y);
   py::class_<Rectangle>(m, "Rectangle")
       .def(py::init<>())
-      .def(py::init<long, long, long, long>(), py::arg("x"), py::arg("y"),
+      .def(py::init<Num, Num, Num, Num>(), py::arg("x"), py::arg("y"),
            py::arg("width"), py::arg("height"))
       .def("do_overlap", &Rectangle::do_overlap)
       .def("volume", &Rectangle::volume)
@@ -55,13 +50,7 @@ PYBIND11_MODULE(_bindings, m) {
       .def("__len__", &Quadtree::size)
       .def("depth", &Quadtree::depth);
   // Knapsack
-  py::class_<Knapsack>(m, "Knapsack")
+  py::class_<Knapsack, AbstractChecker>(m, "Knapsack")
       .def(py::init<std::vector<Coordinate>>(), py::arg("boundary"))
       .def("add_item", &Knapsack::add_item, py::arg("item"));
-  // free functions
-  m.def("translate", &cgshop2024::translate, py::arg("points"),
-        py::arg("translation"));
-
-  // Exceptions
-  py::register_exception<cgshop2024::PackingError>(m, "PackingError");
 }

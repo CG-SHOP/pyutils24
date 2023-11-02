@@ -18,14 +18,6 @@
 #include <vector>
 
 namespace cgshop2024 {
-using Num = int64_t;
-
-class Coordinate {
-public:
-  Coordinate() : x(0), y(0) {}
-  Coordinate(Num x, Num y) : x(x), y(y) {}
-  Num x, y;
-};
 
 class Rectangle {
 public:

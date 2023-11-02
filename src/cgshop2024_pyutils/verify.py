@@ -1,6 +1,8 @@
 import typing
 
-from .knapsack import Coordinate, Knapsack, PackingError, translate
+from .common import Coordinate, PackingError, translate
+from .knapsack_verifier import Knapsack
+from .intersection_verifier import IntersectionChecker
 
 
 def _to_coords(xs: typing.List[int], ys: typing.List[int]):
@@ -15,14 +17,20 @@ class InvalidSolution(Exception):
         return self.msg
 
 
-def verify(instance: typing.Dict, solution: typing.Dict) -> int:
+def verify(instance: typing.Dict, solution: typing.Dict, slow: bool = False) -> int:
     # instance
     container = _to_coords(instance["container"]["x"], instance["container"]["y"])
     item_polys = [_to_coords(item["x"], item["y"]) for item in instance["items"]]
     item_values = [item["value"] for item in instance["items"]]
     item_quantities = [item["quantity"] for item in instance["items"]]
 
-    knapsack = Knapsack(container)
+
+    if slow:
+        # really simple and unoptimized verifier. should however yield the same results.
+        packing_checker = IntersectionChecker(container)
+    else:
+        packing_checker = Knapsack(container)
+
     packed_value = 0
     # solution
     for i, x_translation, y_translation in zip(
@@ -39,7 +47,8 @@ def verify(instance: typing.Dict, solution: typing.Dict) -> int:
         item_quantities[i] -= 1
         poly = translate(item_polys[i], Coordinate(x_translation, y_translation))
         try:
-            knapsack.add_item(poly)  # will throw an exception if the item does not fit
+            packing_checker.add_item(poly)
+            # will throw an exception if the item does not fit
         except PackingError as pe:
             msg = f"Item {i} does not fit: '{pe!s}'"
             raise InvalidSolution(msg) from pe
