@@ -139,11 +139,11 @@ class ZipSolutionIterator:
                         found_an_instance = True
                     except NoSolution:
                         print(f"Skipping {file_name}, as it is not a solution file.")
+                    except BadSolutionFile as e:
+                        msg = f"Error in file '{file_name}': {e}"
+                        raise BadSolutionFile(msg) from e
         except BadZipFile as e:
             msg = f"{e}"
-            raise InvalidZipError(msg) from e
-        except BadSolutionFile as e:
-            msg = f"Aborted parsing zip due to bad file: {e}"
             raise InvalidZipError(msg) from e
         if not found_an_instance:
             raise NoSolutionsError()

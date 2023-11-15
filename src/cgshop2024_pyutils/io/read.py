@@ -69,11 +69,19 @@ def parse_solution(data: typing.Dict):
         or not isinstance(item_indices, list)
     ):
         msg = "Translations and item indices must be lists."
+        if not isinstance(x_translations, list):
+            msg += f" Found {type(x_translations)!s} for x-translations."
+        if not isinstance(y_translations, list):
+            msg += f" Found {type(y_translations)!s} for y-translations."
+        if not isinstance(item_indices, list):
+            msg += f" Found {type(item_indices)!s} for item indices."
         raise BadSolutionFile(msg)
     if len(x_translations) != len(y_translations) or len(x_translations) != len(
         item_indices
     ):
         msg = "Translations and item indices must have the same length."
+        msg += f" Found {len(x_translations)} x-translations,"
+        msg += f"{len(y_translations)} y-translations, and {len(item_indices)} item indices."
         raise BadSolutionFile(msg)
 
     for list_pos, (item_idx, x_tl, y_tl) in enumerate(
@@ -81,9 +89,11 @@ def parse_solution(data: typing.Dict):
     ):
         if not isinstance(item_idx, int):
             msg = "Item indices must be integers."
+            msg += f" Found {type(item_idx)!s} at position {list_pos}."
             raise BadSolutionFile(msg)
         if int(x_tl) != x_tl or int(y_tl) != y_tl:
             msg = "Translations must be integers."
+            msg += f" Found {type(x_tl)!s} for x-translation and {type(y_tl)!s} for y-translation at position {list_pos}."
             raise BadSolutionFile(msg)
         item_indices[list_pos] = int(item_idx)
         x_translations[list_pos] = int(x_tl)
