@@ -38,8 +38,12 @@ def plot_solution(ax: plt.Axes, instance, solution):
         solution["item_indices"], solution["x_translations"], solution["y_translations"]
     ):
         fpoly = instance["items"][idx]
+        xs = list(fpoly["x"])
+        ys = list(fpoly["y"])
+        xs.append(xs[0])
+        ys.append(ys[0])
         num_instance_polys = instance["num_items"]
-        translated_poly = translate_format((fpoly["x"], fpoly["y"]), xo, yo)
+        translated_poly = translate_format((xs, ys), xo, yo)
         color = autocolor(idx, num_instance_polys)
         plot_poly(
             ax,
@@ -50,7 +54,9 @@ def plot_solution(ax: plt.Axes, instance, solution):
             zorder=0,
         )
     container = instance["container"]
-    container["x"].append(container["x"][0])
-    container["y"].append(container["y"][0])
-    ax.plot(container["x"], container["y"], color="black", lw=1)
+    xs = list(container["x"])
+    ys = list(container["y"])
+    xs.append(xs[0])
+    ys.append(ys[0])
+    ax.plot(xs, ys, color="black", lw=1)
     ax.set_aspect("equal", "box")

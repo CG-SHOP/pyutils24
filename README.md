@@ -149,6 +149,7 @@ you to modify and use the code for the competition.
 
 ## Changelog
 
+- **1.2.1:** Fixing Issue #2 and a crash when the `type` field is missing.
 - **1.2.0:** Fixing catching of exception of bad files at the wrong place. Improved error messages.
 - **1.1.1:** A long on Windows is only 32bit, so changed to using the explicit `int64_t` type.
 - **1.1.0:** The previous workaround could lead to excessive memory usage.
