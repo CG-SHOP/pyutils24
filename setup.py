@@ -12,7 +12,7 @@ def readme():
 
 setup(  # https://scikit-build.readthedocs.io/en/latest/usage.html#setup-options
     name="cgshop2024_pyutils",
-    version="1.2.1",
+    version="1.2.2",
     author="Dominik Krupke",
     license="LICENSE",
     description="Utilities for verifying solutions of the CG:SHOP 2024 Competition.",

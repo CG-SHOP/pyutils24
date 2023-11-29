@@ -47,7 +47,7 @@ def parse_solution(data: typing.Dict):
         msg = "Solution must be a dictionary. If your JSON-file is a list of solutions, please split it into multiple files."
         raise BadSolutionFile(msg)
     # make sure this is a proper solution file
-    if data.get("type", None).lower() != "cgshop2024_solution":
+    if not isinstance(data.get("type", None), str) or data["type"].lower() != "cgshop2024_solution":
         msg = "Not a CGSHOP2024 solution file"
         raise NoSolution(msg)
     if "id" in data and "instance" not in data:
