@@ -14,10 +14,18 @@ pip install -U -v cgshop2024-pyutils
 
 During the installation, CGAL and other dependencies will be downloaded and
 compiled. This can take a while but should happen mostly automatic. You need to
-have a C++ compiler installed.
+have a C++ compiler (and the Python development environment) installed.
+Most systems will come with all dependencies preinstalled. Otherwise, you can
+for example install them on Ubuntu with the following command
+
+```bash
+sudo apt install build-essential python3-dev
+```
 
 > Please check for updates of the utils frequently as we are still working on
 > them.
+
+
 
 ## Usage
 
